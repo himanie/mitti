@@ -3,7 +3,7 @@ import { PrismaPg } from "@prisma/adapter-pg"
 import { Pool } from "pg"
 
 const globalForPrisma = globalThis as unknown as {
-  // @ts-expect-error
+
   prisma: PrismaClient | undefined
 }
 
@@ -17,7 +17,6 @@ function createPrismaClient() {
     connectionTimeoutMillis: 15_000,
   })
   const adapter = new PrismaPg(pool)
-  // @ts-expect-error
   return new PrismaClient({ adapter })
 }
 
