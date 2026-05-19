@@ -1,10 +1,16 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState} from "react";
 import { Mail, Lock, User } from "lucide-react";
 
 export default function RegisterPage() {
   const cardRef = useRef<HTMLDivElement>(null);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
 
   useEffect(() => {
     let mouseX = 0;
@@ -40,27 +46,50 @@ export default function RegisterPage() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+ 
+  const handleRegister = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (password !== confirmPassword) {
+    alert("Passwords do not match");
+    return;
+  }
+
+  const res = await fetch("/api/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      password,
+    }),
+  });
+
+  const data = await res.json();
+  alert(data.message);
+};
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#FFEDA8] to-[#e6d38a] px-4 overflow-hidden">
-
    
       <div
         ref={cardRef}
         className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden flex"
       >
-
-     
+        
         <div className="w-1/2 bg-[#003631] text-[#FFEDA8] flex flex-col justify-center items-center p-10 relative">
 
 
           <div className="text-center">
-            <div className="w-28 h-28 border-2 border-[#FFEDA8] rounded-full flex items-center justify-center mb-6">
-              🌿
+            <div className="w-90 h-90 flex items-center justify-center mb-4">
+              <img
+                src="/mitti-logo.png"
+                alt="Mitti Logo"
+                className="w-full h-full object-contain"
+              />
             </div>
-
-            <h1 className="text-4xl tracking-[8px] font-semibold mb-4">
-              MITTI
-            </h1>
 
             <p className="text-sm opacity-80">
               Rooted in Tradition. Crafted for You.
@@ -75,7 +104,7 @@ export default function RegisterPage() {
             Create Account
           </h2>
 
-          <form className="space-y-4">
+          <form onSubmit={handleRegister} className="space-y-4">
 
       
             <div className="flex items-center border rounded-lg px-3 py-2">
@@ -83,6 +112,8 @@ export default function RegisterPage() {
               <input
                 type="text"
                 placeholder="Enter your full name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className="w-full outline-none"
               />
             </div>
@@ -93,6 +124,8 @@ export default function RegisterPage() {
               <input
                 type="email"
                 placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full outline-none"
               />
             </div>
@@ -103,6 +136,8 @@ export default function RegisterPage() {
               <input
                 type="password"
                 placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full outline-none"
               />
             </div>
@@ -113,12 +148,14 @@ export default function RegisterPage() {
               <input
                 type="password"
                 placeholder="Confirm your password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 className="w-full outline-none"
               />
             </div>
 
   
-            <button className="w-full bg-[#003631] text-[#FFEDA8] py-3 rounded-lg font-semibold hover:opacity-90 transition">
+            <button type="submit" className="w-full bg-[#003631] text-[#FFEDA8] py-3 rounded-lg font-semibold hover:opacity-90 transition">
               Register
             </button>
 

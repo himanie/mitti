@@ -17,24 +17,23 @@ export default function ProductsPage() {
   return (
     <div className="min-h-screen bg-[var(--secondary)] px-4 sm:px-6 md:px-10 py-6">
 
-      {/* Heading */}
       <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 text-[var(--primary)]">
         Our Products
       </h1>
 
-      {/* Pinterest Layout */}
+    
       <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5">
 
         {products.map((p) => (
-          <div
+         <div
             key={p.id}
             onClick={() => setSelectedProduct(p)}
-            className="break-inside-avoid cursor-pointer bg-[var(--secondary)] border-2 border-[var(--primary)] rounded-2xl p-3 sm:p-4 hover:scale-[1.02] sm:hover:scale-105 hover:shadow-xl transition"
+            className="break-inside-avoid cursor-pointer bg-[var(--secondary)] rounded-2xl p-3 sm:p-4 shadow-sm hover:shadow-lg hover:scale-[1.02] sm:hover:scale-105 transition overflow-hidden"
           >
-            <img
-              src={`https://picsum.photos/300/${200 + p.id * 40}`}
-              className="w-full object-cover rounded-xl"
-            />
+          <img
+              src={`https://picsum.photos/300/${200 + p.id * 20}`}
+              className="w-full object-cover rounded-2xl"
+          />
 
             <h3 className="mt-2 text-sm sm:text-base text-[var(--primary)] font-semibold">
               {p.name}
@@ -48,7 +47,7 @@ export default function ProductsPage() {
 
       </div>
 
-      {/* Overlay */}
+
       {selectedProduct && (
         <div
           className="fixed inset-0 bg-black/40 z-40"
