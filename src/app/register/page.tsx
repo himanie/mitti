@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState} from "react";
 import { Mail, Lock, User } from "lucide-react";
+import Link from "next/link";
 
 export default function RegisterPage() {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -174,7 +175,7 @@ export default function RegisterPage() {
       ref={cardRef}
       className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden flex"
     >
-      {/* Left Panel */}
+   
       <div className="w-1/2 bg-[#003631] text-[#FFEDA8] flex flex-col justify-center items-center p-10 relative">
         <div className="text-center">
           <div className="w-90 h-90 flex items-center justify-center mb-4">
@@ -191,7 +192,7 @@ export default function RegisterPage() {
         </div>
       </div>
 
-      {/* Right Panel */}
+   
       <div className="w-1/2 p-10 flex flex-col justify-center">
         <h2 className="text-3xl font-bold text-[#003631] text-center mb-6">
           Create Account
@@ -199,7 +200,7 @@ export default function RegisterPage() {
 
         <form onSubmit={handleRegister} className="space-y-4">
 
-          {/* First + Last Name */}
+  
           <div className="grid grid-cols-2 gap-3">
 
             <div>
@@ -242,7 +243,7 @@ export default function RegisterPage() {
 
           </div>
 
-          {/* Email */}
+
           <div>
             <div
               className={`flex items-center border rounded-lg px-3 py-2 ${
@@ -268,7 +269,6 @@ export default function RegisterPage() {
             )}
           </div>
 
-          {/* Phone + Gender */}
           <div className="grid grid-cols-2 gap-3">
 
             <div>
@@ -324,7 +324,7 @@ export default function RegisterPage() {
 
           </div>
 
-          {/* Password */}
+
           <div>
             <div
               className={`flex items-center border rounded-lg px-3 py-2 ${
@@ -350,7 +350,7 @@ export default function RegisterPage() {
             )}
           </div>
 
-          {/* Confirm Password */}
+
           <div>
             <div
               className={`flex items-center border rounded-lg px-3 py-2 ${
@@ -378,7 +378,7 @@ export default function RegisterPage() {
             )}
           </div>
 
-          {/* Register Button */}
+
           <button
             type="submit"
             disabled={loading}
@@ -394,9 +394,12 @@ export default function RegisterPage() {
 
         <p className="text-center text-sm mt-4 text-gray-600">
           Already have an account{" "}
-          <span className="text-[#003631] font-semibold cursor-pointer">
-            Login
-          </span>
+          <Link
+              href="/login"
+              className="text-[#003631] font-semibold cursor-pointer"
+            >
+              Login
+            </Link>
         </p>
       </div>
     </div>

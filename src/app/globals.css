@@ -5,6 +5,51 @@
   --foreground: #171717;
 }
 
+@keyframes fallingLeaf {
+  0% {
+    transform: translateY(-100px) translateX(0px) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: translateY(50vh) translateX(40px) rotate(140deg);
+  }
+
+  100% {
+    transform: translateY(110vh) translateX(-40px) rotate(280deg);
+    opacity: 0;
+  }
+}
+
+.falling-leaf {
+  position: absolute;
+  top: -80px;
+  font-size: 57
+  00px;
+  color: rgba(0, 54, 49, 1.65);  
+  animation: fallingLeaf 9s linear infinite;
+}
+
+
+.animation-delay-1 {
+  animation-delay: 1s;
+}
+
+.animation-delay-2 {
+  animation-delay: 2.5s;
+}
+
+.animation-delay-3 {
+  animation-delay: 4s;
+}
+
+.animation-delay-4 {
+  animation-delay: 5.5s;
+}
 @theme inline {
   --color-background: #E7F5DC;
   --color-foreground: #728156;
