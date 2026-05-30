@@ -126,22 +126,6 @@ export default function LoginPage() {
   return (
 <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#FFEDA8] to-[#e6d38a] px-4 overflow-hidden"> 
       
-<div className="absolute inset-0 pointer-events-none overflow-hidden">
-  <div className="falling-leaf left-[3%]">🌿</div>
-  <div className="falling-leaf left-[8%] animation-delay-1">🍃</div>
-  <div className="falling-leaf left-[15%] animation-delay-2">🌿</div>
-  <div className="falling-leaf left-[22%] animation-delay-3">🍃</div>
-  <div className="falling-leaf left-[30%] animation-delay-4">🌿</div>
-  <div className="falling-leaf left-[38%] animation-delay-1">🍃</div>
-  <div className="falling-leaf left-[45%] animation-delay-2">🌿</div>
-  <div className="falling-leaf left-[52%] animation-delay-3">🍃</div>
-  <div className="falling-leaf left-[60%] animation-delay-4">🌿</div>
-  <div className="falling-leaf left-[67%] animation-delay-1">🍃</div>
-  <div className="falling-leaf left-[74%] animation-delay-2">🌿</div>
-  <div className="falling-leaf left-[81%] animation-delay-3">🍃</div>
-  <div className="falling-leaf left-[88%] animation-delay-4">🌿</div>
-  <div className="falling-leaf left-[94%] animation-delay-1">🍃</div>
-</div>
       <div
             ref={cardRef}
             className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden flex transition-transform duration-200"
