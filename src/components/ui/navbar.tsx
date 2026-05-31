@@ -1,11 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import Link from "next/link";
 import { Heart, ShoppingBag, Search } from "lucide-react";
 
+
 export default function Navbar() {
   const [search, setSearch] = useState("");
+  const [count, setCount] = useState(0);
+
+  const updateCartCount = () => {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+      const total = cart.reduce(
+        (acc: number, item: any) => acc + item.quantity,
+        0
+      );
+
+      setCount(total);
+  };
+  useEffect(() => {
+    updateCartCount();
+
+    const handler = () => updateCartCount();
+    window.addEventListener("cartUpdated", handler);
+
+    return () => {
+      window.removeEventListener("cartUpdated", handler);
+    };
+  }, []);
 
   return (
    <header className="sticky top-0 z-50 bg-[#1F4D3A] shadow-md transition-all duration-300">
@@ -23,7 +46,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Search */}
+    
         <div className="flex-1 mx-6 hidden md:block">
           <div className="relative">
             <Search
@@ -41,7 +64,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Right Side */}
+
         <div className="flex items-center gap-6">
 
           <nav className="hidden lg:flex items-center gap-6">
@@ -78,13 +101,17 @@ export default function Navbar() {
             <Heart size={24} />
           </button>
 
-          <button className="relative text-[#FFF3C4] hover:scale-110 transition">
-            <ShoppingBag size={24} />
+            <Link href="/cart">
+            <div className="relative cursor-pointer text-[#FFF3C4] hover:scale-105 transition">
+              
+              <ShoppingBag size={24}/>
 
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] h-5 w-5 rounded-full flex items-center justify-center">
-              0
-            </span>
-          </button>
+              <span className="absolute -top-2 -right-2 bg-[#1F4D3A] text-white text-[10px] px-1.5 rounded-full">
+                {count}
+              </span>
+
+            </div>
+          </Link>
         </div>
       </div>
 
