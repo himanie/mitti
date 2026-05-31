@@ -9,11 +9,11 @@ type Props = {
 
 async function getProduct(id: string) {
   const res = await fetch(
-    `http://localhost:3000/api/products/${id}`,
-    {
-      cache: "no-store",
-    }
-  );
+  `${process.env.NEXT_PUBLIC_API_URL}/api/products/${id}`,
+      {
+        cache: "no-store",
+      }
+    );
 
   if (!res.ok) {
     throw new Error("Failed to fetch product");
