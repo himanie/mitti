@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Mail, Lock } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -50,6 +50,7 @@ export default function LoginPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
 
   const [loading, setLoading] = useState(false);
@@ -124,17 +125,19 @@ export default function LoginPage() {
   };
 
   return (
-<div className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#FFEDA8] to-[#e6d38a] px-4 overflow-hidden"> 
-      
+<div className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#FFEDA8] to-[#e6d38a] px-4 py-10 overflow-hidden">
+
       <div
             ref={cardRef}
-            className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden flex transition-transform duration-200"
+            className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row transition-transform duration-200"
             >
 
- 
-        <div className="w-1/2 bg-[#003631] text-[#FFEDA8] flex flex-col justify-center items-center p-10">
-          <div className="text-center">
-            <div className="w-90 h-90 flex items-center justify-center mb-4">
+
+        <div className="md:w-1/2 bg-[#003631] text-[#FFEDA8] flex flex-col justify-center items-center p-8 md:p-10 relative overflow-hidden">
+          <div className="absolute -top-16 -left-16 w-48 h-48 rounded-full bg-[#FFEDA8]/5" />
+          <div className="absolute -bottom-20 -right-10 w-56 h-56 rounded-full bg-[#FFEDA8]/5" />
+          <div className="text-center relative">
+            <div className="w-40 h-40 md:w-56 md:h-56 flex items-center justify-center mb-4 mx-auto">
               <img
                 src="/mitti-logo.png"
                 alt="Mitti Logo"
@@ -142,30 +145,33 @@ export default function LoginPage() {
               />
             </div>
 
-            <p className="text-sm opacity-80">
+            <p className="text-sm opacity-80 tracking-wide">
               Rooted in Tradition. Crafted for You.
             </p>
           </div>
         </div>
 
-   
-        <div className="w-1/2 p-10 flex flex-col justify-center">
 
-          <h2 className="text-3xl font-bold text-[#003631] text-center mb-6">
+        <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+
+          <h2 className="text-3xl font-bold text-[#003631] text-center">
             Welcome Back
           </h2>
+          <p className="text-center text-sm text-gray-500 mt-2 mb-8">
+            Sign in to continue to Mitti
+          </p>
 
           <form
             onSubmit={handleLogin}
             className="space-y-4"
           >
- 
+
             <div>
               <div
-                className={`flex items-center border rounded-lg px-3 py-2 ${
+                className={`flex items-center border rounded-lg px-3 py-2.5 transition focus-within:ring-2 focus-within:ring-[#003631]/20 ${
                   errors.email
                     ? "border-red-500"
-                    : "border-gray-300"
+                    : "border-gray-300 focus-within:border-[#003631]"
                 }`}
               >
                 <Mail
@@ -180,7 +186,7 @@ export default function LoginPage() {
                   onChange={(e) =>
                     setEmail(e.target.value)
                   }
-                  className="w-full outline-none"
+                  className="w-full outline-none bg-transparent"
                 />
               </div>
 
@@ -191,13 +197,13 @@ export default function LoginPage() {
               )}
             </div>
 
-  
+
             <div>
               <div
-                className={`flex items-center border rounded-lg px-3 py-2 ${
+                className={`flex items-center border rounded-lg px-3 py-2.5 transition focus-within:ring-2 focus-within:ring-[#003631]/20 ${
                   errors.password
                     ? "border-red-500"
-                    : "border-gray-300"
+                    : "border-gray-300 focus-within:border-[#003631]"
                 }`}
               >
                 <Lock
@@ -206,14 +212,23 @@ export default function LoginPage() {
                 />
 
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) =>
                     setPassword(e.target.value)
                   }
-                  className="w-full outline-none"
+                  className="w-full outline-none bg-transparent"
                 />
+
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((p) => !p)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  className="text-gray-400 hover:text-[#003631] transition ml-2"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
               </div>
 
               {errors.password && (
@@ -223,14 +238,14 @@ export default function LoginPage() {
               )}
             </div>
 
-   
+
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-3 rounded-lg font-semibold transition ${
+              className={`w-full py-3 rounded-lg font-semibold transition shadow-sm ${
                 loading
                   ? "bg-[#003631]/70 cursor-not-allowed"
-                  : "bg-[#003631] hover:opacity-90"
+                  : "bg-[#003631] hover:opacity-90 hover:shadow-md"
               } text-[#FFEDA8]`}
             >
               {loading

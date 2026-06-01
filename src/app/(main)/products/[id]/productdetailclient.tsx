@@ -2,7 +2,6 @@
 import {useRouter} from "next/navigation";
 import { useState } from "react";
 import { Heart, Share2, Star } from "lucide-react";
-import { on } from "events";
 
 export default function ProductDetailClient({
   product,
@@ -64,24 +63,24 @@ const handleAddToCart = () => {
 
   return (
     <div className="min-h-screen bg-[#FFF3C4]">
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-10">
-        <div className="grid lg:grid-cols-2 gap-12">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-10">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
 
-         
-          <div className="bg-[#1F4D3A] p-4 rounded-3xl">
+
+          <div className="bg-[#1F4D3A] p-3 sm:p-4 rounded-3xl">
             <img
               src={
                 product.images?.[0]?.url ||
                 "https://picsum.photos/900"
               }
               alt={product.name||"product"}
-              className="w-full h-150 object-cover rounded-2xl"
+              className="w-full h-72 sm:h-96 lg:h-150 object-cover rounded-2xl"
             />
           </div>
 
-        
+
           <div>
-            <h1 className="text-5xl font-bold text-[#1F4D3A]">
+            <h1 className="text-3xl md:text-5xl font-bold text-[#1F4D3A]">
               {product.name}
             </h1>
 
@@ -93,7 +92,7 @@ const handleAddToCart = () => {
               <Star fill="currentColor" />
             </div>
 
-            <p className="text-4xl font-bold mt-6 text-[#1F4D3A]">
+            <p className="text-3xl md:text-4xl font-bold mt-6 text-[#1F4D3A]">
               ₹{product.priceInr}
             </p>
 
