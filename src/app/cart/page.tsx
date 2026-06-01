@@ -1,5 +1,6 @@
 "use client";
 
+import {useRouter} from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function CartPage() {
@@ -28,6 +29,7 @@ export default function CartPage() {
         : item
     );
     updateCart(updated);
+
   };
 
   const decrease = (id: string) => {
@@ -40,12 +42,32 @@ export default function CartPage() {
       .filter((item) => item.quantity > 0);
 
     updateCart(updated);
+    
   };
+
+  const router = useRouter();
+
+  const handleCheckout = async () => {
+  const res = await fetch("/api/checkout", {
+    method: "POST",
+  });
+
+  if (res.status === 401) {
+    router.push(
+      `/login?callbackUrl=${encodeURIComponent(window.location.pathname)}`
+    );
+    return;
+  }
+
+  alert("User is logged in");
+};
 
   const total = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
+
+  
 
   return (
     <div className="min-h-screen bg-[#FFF3C4]">
@@ -170,7 +192,7 @@ export default function CartPage() {
               </span>
             </div>
 
-            <button className="w-full bg-[#1F4D3A] text-white py-3 rounded-xl hover:opacity-90">
+            <button className="w-full bg-[#1F4D3A] text-white py-3 rounded-xl hover:opacity-90" onClick={handleCheckout}>
               Proceed to Checkout
             </button>
           </div>

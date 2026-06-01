@@ -1,7 +1,8 @@
 "use client";
-
+import {useRouter} from "next/navigation";
 import { useState } from "react";
 import { Heart, Share2, Star } from "lucide-react";
+import { on } from "events";
 
 export default function ProductDetailClient({
   product,
@@ -11,7 +12,22 @@ export default function ProductDetailClient({
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
 const [loading, setLoading] = useState(false);
+const router = useRouter();
 
+const handleBuyNow = async () => {
+  const res = await fetch("/api/checkout", {
+    method: "POST",
+  });
+
+  if (res.status === 401) {
+    router.push(
+      `/login?callbackUrl=${encodeURIComponent(window.location.pathname)}`
+    );
+    return;
+  }
+
+  alert("User is logged in");
+};
 
 const handleAddToCart = () => {
   setLoading(true);
@@ -59,7 +75,7 @@ const handleAddToCart = () => {
                 "https://picsum.photos/900"
               }
               alt={product.name||"product"}
-              className="w-full h-[600px] object-cover rounded-2xl"
+              className="w-full h-150 object-cover rounded-2xl"
             />
           </div>
 
@@ -140,7 +156,7 @@ const handleAddToCart = () => {
                         : "Add to Cart"}
                     </button>
 
-              <button className="bg-[#D89A2B] text-white px-8 py-3 rounded-full">
+              <button className="bg-[#D89A2B] text-white px-8 py-3 rounded-full" onClick={handleBuyNow}>
                 Buy Now
               </button>
 
